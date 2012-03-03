@@ -8,11 +8,13 @@ The concept behind Zend_Debug_Include is that the dependencies for each source f
 
 Zend_Debug_Include comes with 3 built-in adapters: File, Package and Url.
 
-# Tracking File Dependencies
+## Tracking File Dependencies
 
 To track file dependencies you need to create an instance of Zend_Debug_Include_Manager and set the Zend_Debug_Include_Adapter_File adapter. This needs to happen inside your bootstrapper file, before the Front Controller dispatches the request.
 
 ```php
+<?php
+
 $included = new Zend_Debug_Include_Manager();
 $included->setAdapter(new Zend_Debug_Include_Adapter_File());
 $included->setOutputDir('/var/www/my-app/dependencies');
@@ -49,17 +51,21 @@ This creates a zf-files.txt in your output directory containing all the files in
 To change the name of the file:
 
 ```php
+<?php
+
 $included = new Zend_Debug_Include_Manager();
 $included->setOutputDir('/var/www/my-app/dependencies');
 $included->setFilename('files.dep');
 ...
 ```
 
-# Tracking Package Dependencies
+## Tracking Package Dependencies
 
 Similar to Zend_Debug_Include_Adapter_File, but groups all the files into packages.
 
 ```php
+<?php
+
 $included = new Zend_Debug_Include_Manager();
 $included->setAdapter(new Zend_Debug_Include_Adapter_Package());
 $included->setOutputDir('/var/www/my-app/dependencies');
@@ -67,7 +73,7 @@ $included->setOutputDir('/var/www/my-app/dependencies');
 
 The code above creates a zf-packages.txt file and adds the following data:
 
-<pre>
+```
 Zend/Loader.php
 Zend/Controller
 Zend/Exception.php
@@ -79,11 +85,13 @@ Zend/Loader
 Zend/Uri.php
 Zend/Filter
 Zend/Filter.php
-</pre>
+```
 
 Now, if you introduce a new dependency, for example, Zend_Mail:
 
 ```php
+<?php
+
 class IndexController extends Zend_Controller_Action
 {
     public function indexAction()
@@ -96,7 +104,7 @@ class IndexController extends Zend_Controller_Action
 
 The next time the Front Controller dispatches the request and calls the index action, Zend_Debug_Include will automatically add the Zend_Mail package and all its dependencies to the zf-packages.txt file:
 
-```php
+```
 Zend/Loader.php
 Zend/Controller
 Zend/Exception.php
@@ -116,11 +124,13 @@ Zend/Mime
 
 You can then use this information to keep track of dependencies and tell your build tool the name of the files and directories you need to copy and package.
 
-# External Dependencies
+## External Dependencies
 
 Here is where everything starts to make sense. Zend_Debug_Include allows you to search for external dependencies as well, you just need to tell the Adapter the libraries you are using. For example:
 
 ```php
+<?php
+
 $libraries = array('Zend', 'Solar');
 $adapter = new Zend_Debug_Include_Adapter_Package($libraries);
 
@@ -131,7 +141,7 @@ $included->setOutputDir('/var/www/my-app/dependencies');
 
 The Solar packages will also be added to the zf-packages.txt file:
 
-```php
+```
 Zend/Loader.php
 Zend/Controller
 Zend/Exception.php
@@ -156,11 +166,13 @@ Solar/Cache.php
 Solar/Cache
 ```
 
-# URL Adapter
+## URL Adapter
 
 If you want to create a different file for each request, use the URL adapter instead:
 
 ```php
+<?php
+
 $included = new Zend_Debug_Include_Manager();
 $included->setAdapter(new Zend_Debug_Include_Adapter_Url());
 $included->setOutputDir('/var/www/my-app/dependencies');
@@ -174,7 +186,7 @@ http://my-app/blog/2009/02/01
 
 It creates the file blog_2009_02_01.txt.
 
-# License
+## License
 
 - New BSD License http://www.opensource.org/licenses/bsd-license.php
 - Copyright (c) 2010, Federico Cargnelutti. All rights reserved.
