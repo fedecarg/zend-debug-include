@@ -8,7 +8,7 @@ The concept behind Zend_Debug_Include is that the dependencies for each source f
 
 Zend_Debug_Include comes with 3 built-in adapters: File, Package and Url.
 
-## Tracking File Dependencies
+# Tracking File Dependencies
 
 To track file dependencies you need to create an instance of Zend_Debug_Include_Manager and set the Zend_Debug_Include_Adapter_File adapter. This needs to happen inside your bootstrapper file, before the Front Controller dispatches the request.
 
@@ -55,7 +55,7 @@ $included->setFilename('files.dep');
 ...
 ```
 
-## Tracking Package Dependencies
+# Tracking Package Dependencies
 
 Similar to Zend_Debug_Include_Adapter_File, but groups all the files into packages.
 
@@ -116,7 +116,7 @@ Zend/Mime
 
 You can then use this information to keep track of dependencies and tell your build tool the name of the files and directories you need to copy and package.
 
-## External Dependencies
+# External Dependencies
 
 Here is where everything starts to make sense. Zend_Debug_Include allows you to search for external dependencies as well, you just need to tell the Adapter the libraries you are using. For example:
 
@@ -156,7 +156,7 @@ Solar/Cache.php
 Solar/Cache
 ```
 
-## URL Adapter
+# URL Adapter
 
 If you want to create a different file for each request, use the URL adapter instead:
 
